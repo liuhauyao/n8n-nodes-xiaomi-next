@@ -1,5 +1,11 @@
 # n8n-nodes-xiaomi-next
 
+**English:** [n8n](https://n8n.io) community node package — connect **Xiaomi MiMo** to **AI Chain / AI Agent** via the OpenAI-compatible Chat Completions API (`ChatOpenAICompletions` from `@langchain/openai`). Supports thinking mode, multimodal input, optional web search, streaming, and agent tool loops.
+
+**npm:** [`n8n-nodes-xiaomi-next`](https://www.npmjs.com/package/n8n-nodes-xiaomi-next) · `npm i n8n-nodes-xiaomi-next`
+
+---
+
 面向 **n8n** 的社区节点包：通过小米 **MiMo** 平台提供的 **OpenAI 兼容 Chat Completions** API，将 **Xiaomi MiMo Chat Model (Next)** 接入 **AI Chain** 与 **AI Agent**（LangChain `@langchain/openai` 的 `ChatOpenAICompletions` 实现）。
 
 ## 功能概览
@@ -37,7 +43,7 @@ npm install
 npm run build
 npm pack
 cd ~/.n8n/nodes
-npm install /path/to/n8n-nodes-xiaomi-next-1.0.0.tgz --legacy-peer-deps
+npm install /path/to/n8n-nodes-xiaomi-next-1.0.1.tgz --legacy-peer-deps
 ```
 
 安装后**重启 n8n**（或 PM2 / 容器内进程），再在节点面板中搜索 **Xiaomi MiMo**。

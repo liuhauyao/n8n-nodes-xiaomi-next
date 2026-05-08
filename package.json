@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-xiaomi-next",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "n8n community node — Xiaomi MiMo Chat Model (OpenAI-compatible API, thinking mode, multimodal).",
 	"keywords": [
 		"n8n-community-node-package",
@@ -12,7 +12,7 @@
 		"llm"
 	],
 	"license": "MIT",
-	"author": "",
+	"author": "Matrees",
 	"homepage": "https://platform.xiaomimimo.com/docs/zh-CN/quick-start/first-api-call",
 	"repository": {
 		"type": "git",
