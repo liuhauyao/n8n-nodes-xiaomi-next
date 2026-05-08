@@ -91,7 +91,7 @@ npm install /path/to/n8n-nodes-xiaomi-next-1.0.0.tgz --legacy-peer-deps
 ## 本地开发
 
 ```bash
-git clone https://github.com/liuhuayao/n8n-nodes-xiaomi-next.git
+git clone https://github.com/liuhauyao/n8n-nodes-xiaomi-next.git
 cd n8n-nodes-xiaomi-next
 npm install
 npm run build

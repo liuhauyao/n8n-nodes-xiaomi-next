@@ -16,10 +16,10 @@
 	"homepage": "https://platform.xiaomimimo.com/docs/zh-CN/quick-start/first-api-call",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/liuhuayao/n8n-nodes-xiaomi-next.git"
+		"url": "git+https://github.com/liuhauyao/n8n-nodes-xiaomi-next.git"
 	},
 	"bugs": {
-		"url": "https://github.com/liuhuayao/n8n-nodes-xiaomi-next/issues"
+		"url": "https://github.com/liuhauyao/n8n-nodes-xiaomi-next/issues"
 	},
 	"main": "dist/nodes/XiaomiMiMoNextChatModel/XiaomiMiMoNextChatModel.node.js",
 	"scripts": {
