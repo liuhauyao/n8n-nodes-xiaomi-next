@@ -1,0 +1,68 @@
+{
+	"name": "n8n-nodes-xiaomi-next",
+	"version": "1.0.0",
+	"description": "n8n community node — Xiaomi MiMo Chat Model (OpenAI-compatible API, thinking mode, multimodal).",
+	"keywords": [
+		"n8n-community-node-package",
+		"n8n",
+		"xiaomi",
+		"mimo",
+		"langchain",
+		"ai",
+		"llm"
+	],
+	"license": "MIT",
+	"author": "",
+	"homepage": "https://platform.xiaomimimo.com/docs/zh-CN/quick-start/first-api-call",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/liuhuayao/n8n-nodes-xiaomi-next.git"
+	},
+	"bugs": {
+		"url": "https://github.com/liuhuayao/n8n-nodes-xiaomi-next/issues"
+	},
+	"main": "dist/nodes/XiaomiMiMoNextChatModel/XiaomiMiMoNextChatModel.node.js",
+	"scripts": {
+		"build": "tsc && npm run copy-icons",
+		"prepack": "npm run build",
+		"copy-icons": "copyfiles \"nodes/**/*.svg\" \"credentials/*.svg\" dist/",
+		"dev": "tsc --watch"
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"credentials": [
+			"dist/credentials/XiaomiMiMoNextApi.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/XiaomiMiMoNextChatModel/XiaomiMiMoNextChatModel.node.js"
+		]
+	},
+	"dependencies": {
+		"@langchain/core": "1.1.42",
+		"@langchain/openai": "1.4.5",
+		"@n8n/ai-utilities": "^0.14.1",
+		"undici": "6.25.0"
+	},
+	"bundledDependencies": [
+		"@langchain/core",
+		"@langchain/openai",
+		"undici"
+	],
+	"devDependencies": {
+		"@types/node": "^22.0.0",
+		"copyfiles": "^2.4.1",
+		"n8n-workflow": ">=1.82.0",
+		"typescript": "~5.7.0"
+	},
+	"peerDependencies": {
+		"n8n-workflow": ">=1.82.0"
+	},
+	"engines": {
+		"node": ">=22.16"
+	}
+}
