@@ -1,0 +1,78 @@
+# 通过 GitHub Actions 发布到 npm 并生成 provenance（2026-05-01 起 Creator Portal 验证要求）
+# 参考：https://docs.n8n.io/integrations/community-nodes/build-community-nodes/
+#
+# 需在 GitHub 仓库设置 Secrets：NPM_TOKEN（npm Granular Token，具备该包 publish 权限）
+# 或通过 npm Trusted Publisher（OIDC）绑定本仓库与本 workflow，可不使用长期 token（见 npm 文档）
+#
+# · push 到 main / PR 对准 main：仅执行 npm run verify（不需要 NPM_TOKEN）
+# · 打 tag（*.*.* 或 v*.*.*）或手动 Run workflow：verify 通过后 npm publish
+# 发版：npm version patch && git push origin HEAD --tags
+
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*.*.*' # 如 0.2.37（npm version 若配置 tagVersionPrefix=""）
+      - 'v*.*.*' # 如 v0.2.37（npm version 默认）
+  pull_request:
+    branches:
+      - main
+  # 配置好 NPM_TOKEN 后，可在 Actions 里手动「Run workflow」重试发布（无需再打 tag）
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify (n8n community ESLint)
+        run: npm run verify
+
+  publish:
+    name: Publish to npm
+    needs: verify
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/'))
+    runs-on: ubuntu-latest
+    concurrency:
+      group: npm-publish-${{ github.repository }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Require NPM_TOKEN secret
+        run: |
+          if [ -z "${{ secrets.NPM_TOKEN }}" ]; then
+            echo "::error::未配置仓库 Secret「NPM_TOKEN」。请到 Settings → Secrets and variables → Actions → New repository secret，填入 npm Granular Token（需具备本包 publish 权限）。"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Publish to npm with provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance --access public

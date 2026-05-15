@@ -26,6 +26,8 @@
 		"build": "tsc && npm run copy-icons",
 		"prepack": "npm run build",
 		"copy-icons": "copyfiles \"nodes/**/*.svg\" \"credentials/*.svg\" dist/",
+		"verify": "npm run build && eslint dist && node scripts/lint-package-json.mjs",
+		"lint": "eslint dist && node scripts/lint-package-json.mjs",
 		"dev": "tsc --watch"
 	},
 	"files": [
@@ -54,8 +56,10 @@
 		"undici"
 	],
 	"devDependencies": {
+		"@n8n/eslint-plugin-community-nodes": "^0.15.0",
 		"@types/node": "^22.0.0",
 		"copyfiles": "^2.4.1",
+		"eslint": "^9.29.0",
 		"n8n-workflow": ">=1.82.0",
 		"typescript": "~5.7.0"
 	},
